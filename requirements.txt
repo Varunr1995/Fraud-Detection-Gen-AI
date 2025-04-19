@@ -1,0 +1,11 @@
+transformers
+datasets
+torchvision
+pytesseract
+python-docx
+opencv-python
+Pillow
+torch
+PIL
+discord
+spacy
