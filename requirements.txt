@@ -6,6 +6,6 @@ python-docx
 opencv-python
 Pillow
 torch
-PIL
 discord
 spacy
+dotenv
