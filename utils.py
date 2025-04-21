@@ -1,4 +1,3 @@
-# utils.py
 import re
 from typing import Optional
 import requests
@@ -12,7 +11,7 @@ import spacy
 processor = TrOCRProcessor.from_pretrained("microsoft/trocr-base-printed")
 model = VisionEncoderDecoderModel.from_pretrained("microsoft/trocr-base-printed")
 
-# === Load spaCy for Named Entity Recognition (NER) ===
+# === Load spaCy NER ===
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:

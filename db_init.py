@@ -1,18 +1,30 @@
 import sqlite3
 
-conn = sqlite3.connect('receipts.db')
-c = conn.cursor()
+DB_NAME = "receipts.db"
 
-c.execute("""
-CREATE TABLE IF NOT EXISTS receipts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT    NOT NULL,      -- Discord user ID
-    amount REAL     NOT NULL,      -- Extracted receipt amount
-    date TEXT       NOT NULL,      -- Transaction date/time as string
-    city TEXT       NOT NULL,      -- Extracted city name
-    image_path TEXT NOT NULL,      -- Local path to the saved image
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP  -- Insert timestamp
-)
-""")
-conn.commit()
-conn.close()
+def get_connection():
+    """
+    Returns a new SQLite connection. Uses check_same_thread=False
+    to avoid issues in multi-threaded environments like Discord bots.
+    """
+    return sqlite3.connect(DB_NAME, check_same_thread=False)
+
+def init_db():
+    """
+    Initializes the receipts table if it doesn't exist.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS receipts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id TEXT NOT NULL,
+        amount TEXT NOT NULL,
+        date TEXT NOT NULL,
+        city TEXT NOT NULL,
+        image_path TEXT NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+    conn.commit()
+    conn.close()
