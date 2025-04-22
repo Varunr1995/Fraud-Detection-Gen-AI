@@ -2,3 +2,4 @@
 .venv
 .tables
 receipts.db
+test.py
